@@ -2,19 +2,19 @@
 
 $(document).ready(function () {
 
-    $(this).on("click", "#shop", function () {
+    /**
+     * Boton de compra de la pagina de categorías
+     */
+    $(this).on("click", ".shop", function () {
         var productId = $(this).parent().parent().find('.productId').html();
         $.ajax({
             url: "/carrito/" + productId,
             type: "get",
             success: function (data) {
-                if (data === 1) {
-                    alert('Error agregando al carrito.');
-                } else {
-                    //alert('Producto añadido');
-                }
+
+                $('.totalItemsCart').text(data);
             }, error: function () {
-                alert("Error agregando al carrito!!!!");
+                alert("Error agregando alaa carrito!!!!");
             }
         });
     }
@@ -54,7 +54,7 @@ $(document).ready(function () {
             url: "/carrito/" + productId + "/menos",
             type: "get",
             success: function (data) {
-                
+
                 if (data === 1) {
                     alert('Error agregando al carrito.');
                 } else {
@@ -72,15 +72,14 @@ $(document).ready(function () {
                         $.ajax({
                             url: "/carrito/borrar/" + productId,
                             type: "get",
-                            success: function (dataDel) {
-                                if (dataDel === 1) {
-                                    alert('Error borrando producto del carrito.');
-                                } else {
+                            success: function (data) {
+                               
                                     $('#uds' + productId).parent().parent().parent().fadeOut(function () {
                                         $(this).remove();
                                     });
+                                    $('.totalItemsCart').text(data);
                                 }
-                            }
+                            
                         });
                     }
                 }
@@ -96,22 +95,31 @@ $(document).ready(function () {
         $.ajax({
             url: "/carrito/borrar/" + productId,
             type: "get",
-            success: function (dataDel) {
-                
-                if (dataDel === 1) {
-                    alert('Error borrando producto del carrito.');
-                } else {
-
-                    $('#uds' + productId).parent().parent().parent().fadeOut(function () {
-                        $(this).remove();
-                    });
-                }
+            success: function (data) {
+                $('#uds' + productId).parent().parent().parent().fadeOut(function () {
+                    $(this).remove();
+                });
+                $('.totalItemsCart').text(data);
             }
         });
     });
 
-  
+
+
 });
+
+function updateCartItemNumber() {
+    /* $.ajax({
+     url: "/carrito/updateNumber/",
+     type: "get",
+     success: function (data) {
+     console.log(data);
+     $('.totalItemsCart').text(data);
+     }
+     });*/
+    var rowCount = $('.table >tbody >tr').length - 1;
+    $('.totalItemsCart').text(rowCount);
+}
 
 function showProductSellPrice(qty, price) {
     return qty * price;

@@ -34,7 +34,7 @@
         
         
         <div class="card-footer">
-            <a class="btn btn-primary" id="shop">Comprar</a>
+            <a class="btn btn-primary shop">Comprar</a>
             <small class="text-muted">Stock {{$producto->stock}}</small>
 
         </div>

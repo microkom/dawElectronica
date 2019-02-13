@@ -18,8 +18,7 @@ class AddToCartController extends Controller {
     }
 
     public function getCarrito() {
-        //$this->eachProductCart();
-        return view('product.carrito');//, array('productos' => \Session::get('carrito')));
+        return view('product.carrito'); //, array('productos' => \Session::get('carrito')));
     }
 
     public function addCarrito($id) {
@@ -33,19 +32,21 @@ class AddToCartController extends Controller {
                 if ($valor->id == $id) {
                     $productos[$key]->cant++;
                     \Session::put('carrito', $productos);
-                    return 0;
+                    $num = count(\Session::get('carrito'));
+                    return $num;
                 }
             }
             $producto->cant = 1;
             array_push($productos, $producto);
             \Session::put('carrito', $productos);
-
-            return 0;
+            $num = count(\Session::get('carrito'));
+            return $num;
         } else {
             $producto->cant = 1;
             $productos = [$producto];
             \Session::put('carrito', $productos);
-            return 0;
+            $num = count(\Session::get('carrito'));
+            return $num;
         }
     }
 
@@ -61,17 +62,17 @@ class AddToCartController extends Controller {
         $producto = Product::find($id);
         if ($producto == null)
             return 1;
-   
+
         if (count(\Session::get('carrito')) != 0) {
 
             /**
              * Recorre todos el carrito comprobando si el producto ya está agregado
              */
-            $productos = \Session::get('carrito');     
-            foreach ($productos as $key => $valor) {    
-                if ($valor->id == $id) {                
-                    
-                     /**
+            $productos = \Session::get('carrito');
+            foreach ($productos as $key => $valor) {
+                if ($valor->id == $id) {
+
+                    /**
                      * Resta una unidad al producto seleccionado
                      */
                     $productos[$key]->cant--;
@@ -83,16 +84,6 @@ class AddToCartController extends Controller {
                 }
             }
             return 1;
-      /*      foreach ($_SESSION['carrito'] as $key => $valor) {
-                if ($valor->id == $id) {
-                    $_SESSION['carrito'][$key]->cant--;
-                    if ($_SESSION['carrito'][$key]->cant == 0) {
-                        return 2;
-                    }
-                    return 0;
-                }
-            }
-            return 1;*/
         } else {
             return 1;
         }
@@ -104,8 +95,8 @@ class AddToCartController extends Controller {
      * @return int Resultado de la operación
      */
     public function delCarrito($id) {
-        $productos = \Session::get('carrito');     
-            foreach ($productos as $key => $valor) {    
+        $productos = \Session::get('carrito');
+        foreach ($productos as $key => $valor) {
             if ($valor->id == $id) {
 
                 /**
@@ -113,26 +104,15 @@ class AddToCartController extends Controller {
                  */
                 unset($productos[$key]);
                 \Session::put('carrito', $productos);
-                return 0;
+                $num = count(\Session::get('carrito'));
+                return $num;
             }
         }
         return 1;
     }
 
-    /**
-     * Calcula el precio de cada producto en relación con la cantidad dentro 
-     * del carrito
-     */
-    public function eachProductCart() {
-        $total = 0;
-        foreach ($_SESSION['carrito'] as $key => $valor) {
-            $total = ($valor->cant * $valor->price);
-
-            /**
-             * Guarda en el array el calculo del valor del producto 
-             */
-            $_SESSION['carrito'][$key]->totalProducto = $total;
-        }
+    public function updateCartItemNumber() {
+        return count(\Session::get('carrito'));
     }
 
 }

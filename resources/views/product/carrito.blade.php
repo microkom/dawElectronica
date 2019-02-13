@@ -2,6 +2,13 @@
 
 @section('content')
 
+@if(count($productos)==0)
+<div class="text-justify">
+<h3 >Aún no has seleccionado ningún producto para comprar. Entra en nuestra sección de novedades</h3>
+<a class="text-right" href="/">Novedades</a>
+</div>
+@else
+    
 <form action="#" method="post">
     <div class="tituloCategoria">
         <h1>LISTADO DEL CARRITO</h1>
@@ -55,6 +62,8 @@
     </table>
 
 </form>
+
+@endif
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
