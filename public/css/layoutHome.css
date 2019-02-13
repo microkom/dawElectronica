@@ -1,0 +1,196 @@
+.mas{
+    margin: 0;
+}
+
+.row-centered {
+    text-align: center;
+}
+
+.col-centered {
+    display: inline-block;
+    float: none;
+    /* reset the text-align */
+    text-align: left;
+    /* inline-block space fix */
+    margin-right: -4px;
+    text-align: center;
+}
+
+#listaProductos,
+/*th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}*/
+
+#banner-top {
+    background-color: #404659;
+    height: 30px;
+}
+
+#banner-mid {
+    background-color: #ff9947;
+    height: 91px;
+}
+
+.tituloCategoria {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+#login {
+    background-color: #496487;
+    color: white;
+    font-size: 12px;
+    margin-top: 25px;
+    padding: 5px;
+    border: 1px solid #496487;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#login:hover {
+    background-color: #364d6a;
+}
+
+.buscar {
+    margin-top: 25px;
+}
+
+.cart_anchor {
+    float: right;
+    vertical-align: top;
+    background: url("../img/carrito.svg") no-repeat center center / 100% auto;
+    width: 50px;
+    height: 50px;
+    margin-top: 12px;
+}
+
+#banner-top-text {
+    font-size: 13px;
+    color: #ebebed;
+    text-align: right;
+}
+
+#banner-top-title {
+    color: white;
+}
+
+#busqueda {
+    width: 200px;
+}
+
+/* NAVBAR CSS */
+
+#banner-bottom,
+.navbar {
+    background-color: #404659;
+}
+
+.navbar-logout {
+    background-color: #496487;
+}
+
+.navbar li {
+    margin-right: 40px;
+    height: 37px;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/*   MODIFICACION     */
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+}
+
+/*//////////////////////////////   PRODUCTOS     */
+
+/*--- Tarjetas ---*/
+.card-group {
+    display: flex;
+    flex-wrap: wrap;
+
+    /*margin-left: 20em;*/
+    background-color: lightgray;
+}
+
+.card {
+    float: left;
+    max-width: 225px;
+    min-width: 200px;
+    padding: 10px;
+    height: 400px;
+}
+.card a {
+    color: black;
+}
+
+.card a:hover {
+    text-decoration: none;
+}
+
+.card-productos {
+    float: left;
+    width: 220px;
+    padding: 10px;
+    height: 400px;
+}
+
+.card>img {
+    width: 80px;
+    height: 80px;
+}
+
+.card-title {
+    font-size: 17px;
+}
+
+.card-text {
+    text-align: right;
+    font-size: 40px;
+}
+
+.text-muted {
+    font-size: 15px;
+}
+
+.width-900 {
+    width: 900px;
+    margin: auto;
+}
+
+.titulo-centrado {
+    text-align: center;
+}
+
+.price {
+    font-size: 40px;
+    font-weight: bold;
+}
+.font-orbitron{
+    font-family: 'Orbitron', sans-serif;
+}
+.font-ptsans{
+    font-family: 'PT Sans', sans-serif;
+}
+.font-felipa{
+    font-family: 'Felipa', cursive;
+}
+.font-satisfy{
+   font-family: 'Satisfy', cursive; 
+}
+.font-ruda{
+    font-family: 'Ruda', sans-serif;
+}
+.font-economica{
+    font-family: 'Economica', sans-serif;
+}
+.font-b612{
+    font-family: 'B612 Mono', monospace;
+}
+
+.w900{max-width: 900px;}
+.w100{width: 100%;}

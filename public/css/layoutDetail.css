@@ -1,0 +1,13 @@
+.width-900 {
+    width: 900px;
+    margin: auto;
+}
+
+.titulo-centrado {
+    text-align: center;
+}
+
+.price {
+    font-size: 40px;
+    font-weight: bold;
+}
