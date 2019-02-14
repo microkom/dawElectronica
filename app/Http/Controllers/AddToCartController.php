@@ -78,7 +78,8 @@ class AddToCartController extends Controller {
                     $productos[$key]->cant--;
                     if ($productos[$key]->cant == 0) {
                         $this->delCarrito($id);
-                        return 2;
+                        $num = count(\Session::get('carrito'));
+                        return $num;
                     }
                     return 0;
                 }
@@ -111,8 +112,5 @@ class AddToCartController extends Controller {
         return 1;
     }
 
-    public function updateCartItemNumber() {
-        return count(\Session::get('carrito'));
-    }
 
 }

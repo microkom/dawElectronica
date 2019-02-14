@@ -18,7 +18,7 @@
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 border border-danger"> 
                 <button class="btn btn-warning">
-                    <span  class="shop glyphicon glyphicon-shopping-cart"></span>Carrito
+                    <span onclick="document.getElementById('id01').style.display='block'" class="glyphicon glyphicon-shopping-cart"></span>Carrito
                 </button>
             </div>
         </div>
