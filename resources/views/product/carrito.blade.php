@@ -13,61 +13,81 @@
                 <th>Precio</th>
                 <th>Unidades</th>
                 <th>Subtotal</th>
-                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @php
-                $total = 0;
-                $i = 0;
+            $total = 0;
+            $i = 0;
             @endphp
             @foreach($productos as $producto)
             @php
-                $total = $total + $producto->totalProducto;
+            $total = $total + $producto->totalProducto;
             @endphp
             <tr>
                 <td><a href="/product/{{$producto->id}}">{{$producto->brand}} {{$producto->model}} </a></td>
-                <td>
+                <td class="text-center">
                     <span id="priceStatic{{$producto->id}}">{{$producto->price}}</span>€
                 </td>
-                
+
 
 
                 <td class="text-center">
                     <span id="uds{{$producto->id}}" class="cantidad ">
                         <span class="d-none priceDB">{{$producto->price}}</span>
-                        <span class="valor">{{$producto->cant}}</span>
+                        <span class="valor text-center">{{$producto->cant}}</span>
                         <span class="btn btn-sm btn-success mas text-center">+</span> 
-                        <span class="btn btn-sm btn-danger menos">-</span>
+                        <span class="btn btn-sm btn-danger menos text-center">-</span>
                     </span>
                 <td class="text-center">
                     <span id="price{{$producto->id}}" class="subtotal" >{{$producto->totalProducto}}</span>
                 </td>
-                <td class="text-center">
+                <td class="text-right ">
                     <span class="btn btn-sm btn-danger borrarLinea" >Borrar</span>
                 </td>
             </tr>
             @php
-                $i++;
+            $i++;
             @endphp
-       
-        @endforeach 
-        </tbody>
-        <tfoot>
-            <tr>
 
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>Precio total: <span class="totalPrice" id="totalPrice">{{$total}}</span>€</td>
-                <td class="text-center"><input type="submit" value="Realizar compra" name="compra" id="compra"></td>
-                
+            @endforeach 
+        </tbody>
+        <tfoot class="border bg-dark">
+            <tr>                
+                <td colspan="5"></td>
             </tr>
         </tfoot>
     </table>
 
-</form>
 
+
+    <table class="border border-info float-right col-lg-3">
+        <thead class="border border-info">
+        <th colspan="2" class="bg-info text-center text-white">Realizar Compra</th>
+        </thead>
+        <tbody class="border border-info">
+            <tr class="border border-info">
+                <td class=" ">Subtotal</td>
+                <td class="text-right" id="totalBeforeTax">{{round($total/1.21)}}</td>
+            </tr>
+            <tr class="border border-info">
+                <td class="">Iva </td>
+                <td class="text-right" id="totalTax">{{round($total*0.21 )}}</td>
+            </tr>
+            <tr class="border border-info">
+                <td class="">Total</td>
+                <td class="text-right" >
+                    <span class="totalPrice" id="totalPrice">{{round($total )}}</span>€</td>
+            </tr>
+            <tr class="border border-info">
+
+                <td colspan="2" class="text-right"><input type="submit" value="Realizar compra" name="compra" id="compra"></td>
+            </tr>
+        </tbody>
+        <tfoot></tfoot>
+    </table>
+</form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 @stop

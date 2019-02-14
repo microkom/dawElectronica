@@ -10,7 +10,7 @@ $(document).ready(function () {
             success: function (data) {
                 $('.totalItemsCart').text(data);
             }, error: function () {
-                alert("Error agregando al carrito!!!!");
+                alert("Error agregando al qqqq carrito!!!!");
             }
         });
     }
@@ -23,26 +23,19 @@ $(document).ready(function () {
         $.ajax({
             url: "/carrito/" + productId,
             type: "get",
-            //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            //data: { id : productId },
             success: function (data) {
-                if (data == 1) {
-                    alert('Error agregando al carrito.');
-                } else {
-                    var valor = $('#uds' + productId).find('.valor');
-                    var val = parseInt(valor.html()) + 1;
-                    /**
-                     * Muestra el precio en el total de los productos
-                     */
-                    $('#totalPrice').html(parseInt($('#totalPrice').html())+parseInt(price));
-                    
-                    valor.html(val);
-                    //calcular el precio calculado del producto
-                    var sellPrice = showProductSellPrice(val, price);
-                    $('#price' + productId).text(sellPrice);
-                }
-            }, error: function () {
-                alert("Error ajax agregando al carrito!!!!");
+                var valor = $('#uds' + productId).find('.valor');
+                var val = parseInt(valor.html()) + 1;
+                /**
+                 * Muestra el precio  total de los productos
+                 */
+                realizarCompra();
+                
+                valor.html(val);
+                //calcular el precio calculado del producto
+                var sellPrice = showProductSellPrice(val, price);
+                $('#price' + productId).text(sellPrice);
+
             }
         });
 
@@ -61,10 +54,13 @@ $(document).ready(function () {
                     val = val - 1;
                     valor.html(val);
 
-//                    $('.totalItemsCart').text(data);
+                    realizarCompra();
+
                     //calcular el precio calculado del producto
                     var sellPrice = showProductSellPrice(val, price);
                     $('#price' + productId).text(sellPrice);
+
+
                     $('.totalItemsCart').text(data);
                 } else if (val === 1) {
                     $.ajax({
@@ -75,7 +71,7 @@ $(document).ready(function () {
                                 $(this).remove();
                                 $('.totalItemsCart').text(dataDel);
                             });
-
+                            $('#totalPrice').html(parseFloat($('#totalPrice').html()) - parseFloat(price));
                         }
                     });
                 }
@@ -89,13 +85,19 @@ $(document).ready(function () {
     $('.borrarLinea').click(function () {
         var td1 = $(this).parent().parent().find('td:eq(2)');
         var productId = td1.find('span:eq(0)').attr('id').split('uds')[1];
+        var price = $(this).parent().parent().find('.subtotal').text();
         $.ajax({
             url: "/carrito/borrar/" + productId,
             type: "get",
             success: function (data) {
+                
                 $('#uds' + productId).parent().parent().fadeOut(function () {
                     $(this).remove();
                 });
+                /**
+                 * Muestra el precio  total de los productos
+                 */
+                realizarCompra();
                 $('.totalItemsCart').text(data);
             }
         });
@@ -106,4 +108,14 @@ $(document).ready(function () {
 
 function showProductSellPrice(qty, price) {
     return qty * price;
+}
+
+function realizarCompra() {
+    //$('#totalPrice').html(parseInt($('#totalPrice').html()) - parseInt(price));
+    var totalTax = Math.round((parseFloat($('#totalPrice').html()) * 0.21),2);
+    console.log(totalTax);
+    var totalBeforeTax = Math.round((parseFloat($('#totalPrice').html()) / 1.21),2);
+    $('#totalTax').html(totalTax);
+    $('#totalBeforeTax').html(totalBeforeTax);
+    $('#totalPrice').html(totalTax+totalBeforeTax);
 }
