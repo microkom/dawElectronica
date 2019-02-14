@@ -19,7 +19,7 @@ $(document).ready(function () {
 
     $('.mas').click(function () {
         var productId = $(this).parent().attr('id').split('uds')[1];
-        var price = $(this).parent().find('.priceDB').text();
+        var price = $(this).parent().find('.priceDB').html();
         $.ajax({
             url: "/carrito/" + productId,
             type: "get",
@@ -31,11 +31,15 @@ $(document).ready(function () {
                 } else {
                     var valor = $('#uds' + productId).find('.valor');
                     var val = parseInt(valor.html()) + 1;
+                    /**
+                     * Muestra el precio en el total de los productos
+                     */
+                    $('#totalPrice').html(parseInt($('#totalPrice').html())+parseInt(price));
+                    
                     valor.html(val);
                     //calcular el precio calculado del producto
                     var sellPrice = showProductSellPrice(val, price);
                     $('#price' + productId).text(sellPrice);
-                    totalPrice();
                 }
             }, error: function () {
                 alert("Error ajax agregando al carrito!!!!");
@@ -57,12 +61,11 @@ $(document).ready(function () {
                     val = val - 1;
                     valor.html(val);
 
-                    $('.totalItemsCart').text(data);
+//                    $('.totalItemsCart').text(data);
                     //calcular el precio calculado del producto
                     var sellPrice = showProductSellPrice(val, price);
                     $('#price' + productId).text(sellPrice);
-                    totalPrice();
-
+                    $('.totalItemsCart').text(data);
                 } else if (val === 1) {
                     $.ajax({
                         url: "/carrito/borrar/" + productId,
@@ -70,9 +73,9 @@ $(document).ready(function () {
                         success: function (dataDel) {
                             $('#uds' + productId).parent().parent().fadeOut(function () {
                                 $(this).remove();
+                                $('.totalItemsCart').text(dataDel);
                             });
-                            $('.totalItemsCart').text(data);
-                            totalPrice();
+
                         }
                     });
                 }
@@ -94,7 +97,6 @@ $(document).ready(function () {
                     $(this).remove();
                 });
                 $('.totalItemsCart').text(data);
-                totalPrice();
             }
         });
     });
@@ -104,16 +106,4 @@ $(document).ready(function () {
 
 function showProductSellPrice(qty, price) {
     return qty * price;
-}
-
-function totalPrice(){
-    var total = 0;
-    var priceTotal = $('.table').find('.totalPrice');
-    var size = $('.table').find('tbody').find('tr').length;
-    for(i=0;i<size;i++){
-        subtot = $('.table').find('tbody').find('tr').find('td:eq(3)').find('.subtotal'+i).html();
-        subtot = parseFloat(subtot);
-        total = total + subtot;
-    }
-    priceTotal.html(total);
 }

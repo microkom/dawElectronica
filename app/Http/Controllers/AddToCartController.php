@@ -18,6 +18,7 @@ class AddToCartController extends Controller {
     }
 
     public function getCarrito() {
+        $this->eachProductCart();
         return view('product.carrito'); //, array('productos' => \Session::get('carrito')));
     }
 
@@ -81,12 +82,15 @@ class AddToCartController extends Controller {
                         $num = count(\Session::get('carrito'));
                         return $num;
                     }
-                    return 0;
+                    $num = count(\Session::get('carrito'));
+                    return $num;
                 }
             }
-            return 1;
+            $num = count(\Session::get('carrito'));
+            return $num;
         } else {
-            return 1;
+            $num = count(\Session::get('carrito'));
+            return $num;
         }
     }
 
@@ -109,8 +113,25 @@ class AddToCartController extends Controller {
                 return $num;
             }
         }
-        return 1;
+        $num = count(\Session::get('carrito'));
+        return $num;
     }
 
+    /**
+     * Calcula el precio de cada producto en relación con la cantidad dentro 
+     * del carrito
+     */
+    public function eachProductCart() {
+        $total = 0;
+        $productos = \Session::get('carrito');
+        foreach ($productos as $key => $valor) {
+            $total = ($valor->cant * $valor->price);
+            /**
+             * Guarda en el array el calculo del valor del producto 
+             */
+            $productos[$key]->totalProducto = $total;
+            \Session::put('carrito', $productos);
+        }
+    }
 
 }

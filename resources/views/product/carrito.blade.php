@@ -10,8 +10,8 @@
         <thead class="text-white bg-info text-center">
             <tr>
                 <th>Producto</th>
-                <th>Unidades</th>
                 <th>Precio</th>
+                <th>Unidades</th>
                 <th>Subtotal</th>
                  <th></th>
             </tr>
@@ -41,22 +41,27 @@
                         <span class="btn btn-sm btn-danger menos">-</span>
                     </span>
                 <td class="text-center">
-                    <span id="price{{$producto->id}}" >{{$producto->cant*$producto->price}}</span>
+                    <span id="price{{$producto->id}}" class="subtotal" >{{$producto->totalProducto}}</span>
                 </td>
                 <td class="text-center">
-                    <span class="btn btn-danger borrarLinea" >Borrar</span>
+                    <span class="btn btn-sm btn-danger borrarLinea" >Borrar</span>
                 </td>
             </tr>
+            @php
+                $i++;
+            @endphp
        
         @endforeach 
         </tbody>
         <tfoot>
             <tr>
 
-                <td>€</td>
                 <td></td>
                 <td></td>
+                <td></td>
+                <td>Precio total: <span class="totalPrice" id="totalPrice">{{$total}}</span>€</td>
                 <td class="text-center"><input type="submit" value="Realizar compra" name="compra" id="compra"></td>
+                
             </tr>
         </tfoot>
     </table>
