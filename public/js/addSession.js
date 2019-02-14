@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
 
-    $(this).on("click", "#shop", function () {
+    $(this).on("click", ".shop", function () {
         var productId = $(this).parent().parent().find('.productId').html();
         $.ajax({
             url: "/carrito/" + productId,
@@ -100,4 +100,16 @@ $(document).ready(function () {
 
 function showProductSellPrice(qty, price) {
     return qty * price;
+}
+
+function totalPrice(){
+    var total = 0;
+    var priceTotal = $('.table').find('.totalPrice');
+    var size = $('.table').find('tbody').find('tr').length;
+    for(i=0;i<size;i++){
+        subtot = $('.table').find('tbody').find('tr').find('td:eq(3)').find('.subtotal'+i).html();
+        subtot = parseFloat(subtot);
+        total = total + subtot;
+    }
+    priceTotal.html(total);
 }

@@ -6,21 +6,23 @@
     <div class="tituloCategoria">
         <h1>LISTADO DEL CARRITO</h1>
     </div>
-    <table class="table">
-        <thead>
+    <table class="table table-hover col-lg-12">
+        <thead class="text-white bg-info text-center">
             <tr>
                 <th>Producto</th>
                 <th>Unidades</th>
                 <th>Precio</th>
-                <th></th>
+                <th>Subtotal</th>
+                 <th></th>
             </tr>
         </thead>
         <tbody>
             @php
+                $total = 
             @endphp
             @foreach($productos as $producto)
             <tr>
-                <td>{{$producto->brand}} {{$producto->model}} </td>
+                <td><a href="/product/{{$producto->id}}">{{$producto->brand}} {{$producto->model}} </a></td>
                 @php
                 $id = $producto->id;
                 $price = $producto->price;
@@ -41,8 +43,9 @@
                     <span class="btn btn-danger borrarLinea" >Borrar</span>
                 </td>
             </tr>
+       
+        @endforeach 
         </tbody>
-        @endforeach
         <tfoot>
             <tr>
 
