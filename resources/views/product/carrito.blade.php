@@ -18,15 +18,19 @@
         </thead>
         <tbody>
             @php
-                $total = 
+                $total = 0;
+                $i = 0;
             @endphp
             @foreach($productos as $producto)
+            @php
+                $total = $total + $producto->totalProducto;
+            @endphp
             <tr>
                 <td><a href="/product/{{$producto->id}}">{{$producto->brand}} {{$producto->model}} </a></td>
-                @php
-                $id = $producto->id;
-                $price = $producto->price;
-                @endphp
+                <td>
+                    <span id="priceStatic{{$producto->id}}">{{$producto->price}}</span>€
+                </td>
+                
 
 
                 <td class="text-center">

@@ -35,6 +35,7 @@ $(document).ready(function () {
                     //calcular el precio calculado del producto
                     var sellPrice = showProductSellPrice(val, price);
                     $('#price' + productId).text(sellPrice);
+                    totalPrice();
                 }
             }, error: function () {
                 alert("Error ajax agregando al carrito!!!!");
@@ -60,16 +61,18 @@ $(document).ready(function () {
                     //calcular el precio calculado del producto
                     var sellPrice = showProductSellPrice(val, price);
                     $('#price' + productId).text(sellPrice);
+                    totalPrice();
 
                 } else if (val === 1) {
                     $.ajax({
                         url: "/carrito/borrar/" + productId,
                         type: "get",
                         success: function (dataDel) {
-                            $('#uds' + productId).parent().parent().parent().fadeOut(function () {
+                            $('#uds' + productId).parent().parent().fadeOut(function () {
                                 $(this).remove();
                             });
                             $('.totalItemsCart').text(data);
+                            totalPrice();
                         }
                     });
                 }
@@ -81,16 +84,17 @@ $(document).ready(function () {
 
     });
     $('.borrarLinea').click(function () {
-        var td1 = $(this).parent().parent().find('td:eq(1)');
+        var td1 = $(this).parent().parent().find('td:eq(2)');
         var productId = td1.find('span:eq(0)').attr('id').split('uds')[1];
         $.ajax({
             url: "/carrito/borrar/" + productId,
             type: "get",
             success: function (data) {
-                $('#uds' + productId).parent().parent().parent().fadeOut(function () {
+                $('#uds' + productId).parent().parent().fadeOut(function () {
                     $(this).remove();
                 });
                 $('.totalItemsCart').text(data);
+                totalPrice();
             }
         });
     });
