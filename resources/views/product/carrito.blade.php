@@ -62,27 +62,33 @@
 
 
 
-    <table class="border border-info float-right col-lg-3">
-        <thead class="border border-info">
-        <th colspan="2" class="bg-info text-center text-white">Realizar Compra</th>
+    <table class="border border-info float-right col-lg-4">
+        <thead>
+        <th colspan="2" class="bg-info text-center text-white">Detalle Compra</th>
         </thead>
         <tbody class="border border-info">
             <tr class="border border-info">
-                <td class=" ">Subtotal</td>
-                <td class="text-right" id="totalBeforeTax">{{round($total/1.21)}}</td>
+                <td class="col-lg-2">Subtotal</td>
+                <td class="text-right col-lg-2" >
+                    <span class="text-right" id="totalBeforeTax">{{number_format(($total/1.21),2)}}</span>€
+                </td>
             </tr>
             <tr class="border border-info">
-                <td class="">Iva </td>
-                <td class="text-right" id="totalTax">{{round($total*0.21 )}}</td>
-            </tr>
-            <tr class="border border-info">
-                <td class="">Total</td>
-                <td class="text-right" >
-                    <span class="totalPrice" id="totalPrice">{{round($total )}}</span>€</td>
-            </tr>
-            <tr class="border border-info">
+                <td class="col-lg-2">Iva </td>
+                <td class="text-right col-lg-2" >
+                    <span class="text-right" id="totalTax">{{number_format((($total/1.21)*0.21 ),2)}}</span>€
+                </td>
 
-                <td colspan="2" class="text-right"><input type="submit" value="Realizar compra" name="compra" id="compra"></td>
+            </tr>
+            <tr class="border border-info">
+                <td class=" col-lg-2">Total</td>
+                <td class="text-right col-lg-2" >
+                    <span class="totalPrice" id="totalPrice">{{number_format($total ,2)}}</span>€
+                </td>
+            </tr>
+            <tr class="border border-info col-lg-4">
+
+                <td colspan="2" class="text-center"><input class="btn btn-dark text-white" type="submit" value="Realizar compra" name="compra" id="compra"></td>
             </tr>
         </tbody>
         <tfoot></tfoot>
